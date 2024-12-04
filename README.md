@@ -14,32 +14,54 @@ Desarrollar una skill para Alexa que permita a los usuarios acceder de manera se
 <br>
 <h2 align="center"> Pasos para realizar la skill </h2>
 <br>
-<h3> Configuracion Inicial </h3>
+<h3> 1. Configuracion Inicial </h3>
+
+
+
+
+
 
 | Captura | Descripción | 
 |:-------------:|:---------------|
-| <img src="https://github.com/user-attachments/assets/3809731f-de0a-478e-88de-993e397c6281"  width="300" height="100" style="margin-bottom: 5px;"> | El archivo `main.dart` es el punto de entrada de una aplicación. <br> En este archivo, se inicializa la aplicación utilizando el widget `MyApp`, el cual configura la gestión del estado mediante `Provider`, aplica un tema personalizado definido en `AppTheme` y establece la pantalla principal (`ChatScreen`).Esta estructura permite gestionar el estado de manera centralizada y asegura que la interfaz de usuario esté basada en el diseño de Material Design, proporcionando una experiencia consistente y eficiente para el usuario. |
-| <img src="https://github.com/user-attachments/assets/1be6e94c-d893-420e-800b-021fdf5de1af"  width="300" height="100" style="margin-bottom: 5px;"> |Define una clase `AppTheme` que permite crear un tema personalizado para una aplicación Flutter. Lo que permite crear un tema dinámico para la aplicación basado en un conjunto de colores predefinidos, donde el color seleccionado se ajusta mediante el índice proporcionado. La aplicación utilizará Material Design 3 con un esquema de colores determinado por el color seleccionado.|
-| <img src="https://github.com/user-attachments/assets/492473ea-96c0-416a-99ee-78a393aadd1e"  width="300" height="100" style="margin-bottom: 5px;"> |El widget `ChatScreen` es la pantalla donde se muestra un chat. Tiene una barra de aplicaciones (AppBar) con un avatar de usuario y un título, y el cuerpo de la pantalla está destinado a mostrar la vista del chat (con `_ChatView` como widget encargado de ello). Esta estructura proporciona una interfaz básica para la pantalla de chat.
+| <img src="https://github.com/user-attachments/assets/18807c8d-3a2a-4328-98b9-1bc6ab329b98"  width="300" height="100" style="margin-bottom: 5px;"> | Para comenzar debemos crear una cuenta de Amazon Developer o iniciar sesion si ya tienes una cuenta. |
+| <img src="https://github.com/user-attachments/assets/c2766b6d-e3b5-4fb1-83df-a616f6aba615"  width="300" height="100" style="margin-bottom: 5px;"> | Descargamos herramientas necesarias, por si usas una plantilla o frameworks como ASK CLI (Alexa Skills Kit Command Line Interface), eh instálalos localmente. |
 
-<h3> Practica 22 </h3>
-
-| Captura | Descripción | 
-|:-------------:|:---------------|
-| <img src="https://github.com/user-attachments/assets/b6c51180-6d6b-405f-9f47-16e28d739f40"  width="300" height="100" style="margin-bottom: 5px;"> |El widget `_ChatView` es la vista del chat en la aplicación. Muestra una lista de mensajes en un `ListView.builder` que se desplaza y actualiza en función del estado gestionado por `ChatProvider`. Los mensajes se presentan con burbujas diferentes según quién los envíe (el usuario o la otra persona). Al final de la pantalla, hay una caja de texto donde el usuario puede escribir y enviar nuevos mensajes.|
-| <img src="https://github.com/user-attachments/assets/b824ea15-80a0-4d99-b6b6-8b7a9ad717b9"  width="300" height="100" style="margin-bottom: 5px;"> |`MyMessageBubble` es un widget que muestra el mensaje enviado por el usuario en una burbuja estilizada. El fondo de la burbuja tiene el color primario del tema, y el texto se presenta en blanco. Este widget se utiliza para la visualización de los mensajes del usuario en la interfaz de chat.|
-| <img src="https://github.com/user-attachments/assets/3a564a1c-ebd3-4db8-b1c7-da41ff4137e0"  width="300" height="100" style="margin-bottom: 5px;"> |`OtherMessageBubble` es un widget que muestra los mensajes que provienen de otra persona en la conversación. Utiliza un Container con fondo de color secundario y texto dentro de un Padding para estilizar los mensajes. |
-| <img src="https://github.com/user-attachments/assets/10344622-d40b-4e60-8c5d-7cfcffd13ee2"  width="300" height="100" style="margin-bottom: 5px;"> |`_ImageBubble` es un widget diseñado para mostrar una imagen dentro de una burbuja de mensaje. Maneja el proceso de carga de la imagen y muestra un mensaje indicativo de que la imagen se está descargando. Además, la imagen tiene bordes redondeados y se ajusta al tamaño de la pantalla de forma responsiva, asegurando que se vea correctamente en diferentes dispositivos.| <img src="https://github.com/user-attachments/assets/084827b5-ff25-4de8-bb53-90f028e772fa"  width="300" height="100" style="margin-bottom: 5px;"> |El widget `MessageFieldBox` crea un campo de texto estilizado con un borde redondeado y un botón de envío. Permite al usuario escribir mensajes, y al presionar el icono de envío o la tecla Enter, se llama a una función onValue con el texto ingresado. Además, incluye un manejo del foco y de la interacción con el teclado.|
-
-<h3> Practica 23 </h3>
+<h3> 2. Diseño de skill</h3>
 
 | Captura | Descripción | 
 |:-------------:|:---------------|
-| <img src="https://github.com/user-attachments/assets/28580c72-ab84-4751-b099-ca3869a0af44"  width="300" height="100" style="margin-bottom: 5px;"> |El código define la clase `YesNoModel`, que se utiliza como modelo de datos para manejar respuestas del tipo "sí o no" provenientes de una fuente externa . Incluye métodos para convertir instancias desde y hacia formatos JSON, y para transformarlas en una entidad del dominio llamada `Message`.|
-| <img src="https://github.com/user-attachments/assets/9594f9be-f2a0-46cc-b851-707662c49b55"  width="300" height="100" style="margin-bottom: 5px;"> |La clase `ChatProvider` es el núcleo del manejo del estado del chat. Coordina las acciones entre el envío de mensajes, la recepción de respuestas automáticas, y la actualización visual de la interfaz.|
-| <img src="https://github.com/user-attachments/assets/f28107b7-4157-4a42-abe2-20556e076222"  width="300" height="100" style="margin-bottom: 5px;"> |La clase `GetYesNoAnswer` actúa como un puente entre la API de yesno.wtf y la lógica de la aplicación. Realiza solicitudes HTTP, transforma las respuestas en objetos internos, y permite integrar respuestas automáticas en el flujo del chat, completando la experiencia interactiva de la aplicación.| <img src="https://github.com/user-attachments/assets/226e7ef8-7894-4dc0-88bc-f10f6539490c"  width="300" height="100" style="margin-bottom: 5px;"> |El método `moveScrollToBottom` mejora la experiencia de usuario al garantizar que los mensajes más recientes sean visibles sin requerir interacción manual, proporcionando un desplazamiento suave hacia la parte inferior de la lista.|
+| <img src="https://github.com/user-attachments/assets/0fcbe642-7b45-4aaa-a365-81b899900b07"  width="300" height="100" style="margin-bottom: 5px;"> |Definimos como se llamara y como interactuara con el usuario.
+| <img src="https://github.com/user-attachments/assets/020c928b-6aa7-4fb0-ae63-04e6bfe0f707"  width="300" height="100" style="margin-bottom: 5px;"> |Creamos una nueva skill, definiendo el propósito de la skill, determinando qué función cumplirá y cómo interactuarán los usuarios con comandos de voz.|
+
+<h3> 3. Configuración en Alexa Developer Console </h3>
+
+| Captura | Descripción | 
+|:-------------:|:---------------|
+| <img src="https://github.com/user-attachments/assets/513a4df9-f68e-43f0-aed7-5d82e2ee0101"  width="300" height="100" style="margin-bottom: 5px;"> |En la parte superior haz click en `Code` para editar el codigo.|
+| <img src="https://github.com/user-attachments/assets/9fdfa934-6e00-4095-8ab8-49d1cd34d8e4"  width="300" height="100" style="margin-bottom: 5px;"> |Ahi mismo haz click en `Import Code` y importa el que descargaste y procede a editar el codigo de acuerdo a tus necesidades, como el mensaje inicial, tus cordenadas y tu API de OpenWeatherMap.|
+| <img src="https://github.com/user-attachments/assets/1595bd76-8c9c-4f18-8b9b-16eb44035243"  width="300" height="100" style="margin-bottom: 5px;"> |Despues de editar tu codigo, siempre debes dar click en `Save` despues en `Deploy` para al final poder construirla dando click en `Build`.|
+
+<h3> 4. Edicion de la distribucion</h3>
+
+| Captura | Descripción | 
+|:-------------:|:---------------|
+| <img src="https://github.com/user-attachments/assets/4dfe8bc1-99f3-48a4-8a39-5405463e01be"  width="300" height="100" style="margin-bottom: 5px;"> |En la misma parte superior haz click en `Distribution` para la agregacion de comentarios de la skill y su privacidad .
+| <img src="https://github.com/user-attachments/assets/2ee73f35-37b7-40a6-8d55-7b4a8fcd61f1"  width="300" height="100" style="margin-bottom: 5px;"> |Procedemos a construirla dando click en `Build` en la parte superior, para asi poder hacer pruebas.|
+
+<h3> 5. Testeo de la Skill </h3>
+
+| Captura | Descripción | 
+|:-------------:|:---------------|
+| <img src="https://github.com/user-attachments/assets/1815d075-1ff8-4160-9256-f247e9aec77f"  width="300" height="100" style="margin-bottom: 5px;"> |En la parte superior haz click en `Test`, coloca `Alexa, Abre` acompañado del nombre de tu skill.
+| <img src="https://github.com/user-attachments/assets/f4c69fc1-fa14-4a6b-b439-a94d2588d771"  width="300" height="100" style="margin-bottom: 5px;"> |Para culminar, realiza una pregunta para poder interactuar con tu Skill de Alexa que haz realizado.|
 
 ## Resultados
-![captura2](https://github.com/user-attachments/assets/2882fa4d-ed55-4f99-85ea-c2512a93ece5)
+![image](https://github.com/user-attachments/assets/482a497f-6eea-44b9-8c7a-ea411c199daf)
+
+##
+
+![image](https://github.com/user-attachments/assets/ceca8cec-b618-45a7-bab7-c203c069d3db)
+
+
 
 
